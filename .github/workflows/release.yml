@@ -17,13 +17,13 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Read package.json
-        uses: dutscher/read-package-json-endpoint-actions@v1.33.7
-        id: package-json-endpoint
+      - name: get npm version
+        uses: martinbeentjes/npm-get-version-action@main
+        id: package-version
 
       - name: Show version number
         run: |
-          BRANCH_NAME="${{ steps.package-json-endpoint.outputs.endpoint }}"
+          BRANCH_NAME="${{ steps.package-version.outputs.current-version }}"
           VERSION=${BRANCH_NAME#release/}
           echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
       
